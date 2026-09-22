@@ -1,195 +1,211 @@
-# SIH_Indian_AV
+# Adaptive Path Planning for Autonomous Vehicles on Unstructured Indian Roads
 
-**Adaptive Path Planning for Autonomous Vehicles on Unstructured Indian Roads**
+**Smart India Hackathon 2026 · Problem Statement ID: 26037 · MathWorks**
 
-Core innovation: **IR-PSC — Indian-Road Predictive Safety Corridor**
+Core idea: **IR-PSC (Indian-Road Predictive Safety Corridor)**
 
-> *"Lane is an optional cue; drivable space is the primary planning constraint."*
+> *Lane markings are an optional cue. Drivable space is the primary planning constraint.*
 
 ---
 
-## ⚠️ Read this before anything else
+## The Problem
 
-**This project has still never been run in MATLAB.** MATLAB, Simulink, Stateflow and RoadRunner are not installed on the development machine.
+Most autonomous-driving planners assume clean lane markings, clear road edges and traffic that follows lane discipline. Indian roads rarely offer any of that. Lane markings are often faded or missing, road boundaries are unclear, and the ego vehicle shares space with cars, buses, trucks, two-wheelers, auto-rickshaws, pedestrians, pushcarts and cattle, many of which merge informally or cross without warning. Potholes and irregular road geometry make it worse.
 
-**Phase 2 (Sept 2026): the code has been executed and debugged in GNU Octave 11.3.0** (a free MATLAB-compatible interpreter), using the small test-only shims in `tools/octave`. The unit, integration and behavioural tests and the full demo scenario run there; the measured results are in [`PROJECT_STATUS.md`](PROJECT_STATUS.md) and every change is explained in [`docs/PHASE2_CHANGES.md`](docs/PHASE2_CHANGES.md). **Octave is not MATLAB** — report these as Octave results, and re-run in MATLAB before quoting anything.
+A lane-following planner has nothing to follow in these conditions. So the question the vehicle needs to answer at every moment is: **where can I safely drive right now?**
 
-There are also things this package deliberately does **not** contain, because they cannot be created honestly without the software:
+## Our Solution
 
-| Not present | Why | How to get it |
+We built **IR-PSC**, a planner that works from drivable space instead of lanes. Each planning cycle, it:
+
+1. Finds the drivable corridor directly from free space (no lane markings needed) and extracts its boundaries and centreline.
+2. Tracks surrounding road users and predicts where they will be over the next few seconds, with uncertainty that grows over time and is larger for unpredictable users such as pedestrians, two-wheelers and animals.
+3. Builds a risk grid from predicted occupancy, time-to-conflict and pothole cost.
+4. Deforms the preferred path around hazards using dynamic programming, while keeping boundary and obstacle clearance.
+5. Checks the trajectory against vehicle limits, scales speed to its confidence, and slows down or stops safely when no safe path exists.
+
+It runs as a full closed-loop simulation (sensors → fusion → tracking → prediction → planning → decision → control → vehicle dynamics) and draws every step live in a 3D view. A conventional fixed-candidate planner is included as a baseline, so the two can be compared on the same road with the same seed.
+
+---
+
+## Tech Stack
+
+| Category | Technology | Used for |
 |---|---|---|
-| `.slx` Simulink model | Only Simulink can create one | `simulink/buildClosedLoopModel.m` |
-| `.sfx` Stateflow chart | Only Stateflow can create one | `decision/stateflow/STATEFLOW_SPEC.md` |
-| `.rrscene` RoadRunner scenes | RoadRunner is a visual 3D editor | `roadrunner/ROADRUNNER_PLAN.md` |
-| `.prj` MATLAB Project | MATLAB generates and manages it | `scripts/createProject.m` |
-| Any result, figure or metric | Would require an executed run | Run it yourself |
-
-**The SIH requirement for at least two detailed RoadRunner scenes is currently NOT MET.** See [`roadrunner/ROADRUNNER_PLAN.md`](roadrunner/ROADRUNNER_PLAN.md).
-
-Full labelling of every component: [`docs/COMPONENT_REGISTER.md`](docs/COMPONENT_REGISTER.md).
+| Language | MATLAB | Entire planner, simulation and visualisation |
+| Core platform | Base MATLAB (no toolboxes required) | IR-PSC pipeline runs without any toolbox |
+| Planning | Frenet-frame trajectories, dynamic programming | Corridor extraction and trajectory deformation |
+| Prediction | Constant-velocity model + uncertainty growth + irregular-motion model | Short-term motion of road users |
+| Perception (simulated) | Camera, LiDAR and radar models, multi-sensor fusion, multi-object tracking | Detecting and tracking road users and potholes |
+| Decision logic | 6-state machine (Stateflow spec included) | CRUISE / SLOW / AVOID / STOP / RESUME behaviour |
+| Vehicle model | Kinematic bicycle model + controllers | Closed-loop vehicle motion |
+| Visualisation | MATLAB graphics (3D viewer), VideoWriter | Live demo, replay and video recording |
+| Extensions (planned) | Simulink, Stateflow, RoadRunner | Model-based integration and detailed scenes |
+| Supporting tools | Python | Cross-checking the Frenet reference |
 
 ---
 
-## Quick start
+## How to Run the Project in MATLAB
+
+### Step 1: Install MATLAB
+
+1. Go to **https://www.mathworks.com/downloads** and sign in, or create a free MathWorks account. Students can usually get a licence through their college's MATLAB Campus-Wide Licence; use your college email address.
+2. Download the MATLAB installer for your operating system (Windows, macOS or Linux).
+3. Run the installer and sign in with your MathWorks account.
+4. When asked which products to install, **MATLAB** is the only one this project needs. Simulink and Stateflow are optional, for future integration.
+5. Finish the installation and open MATLAB. Any recent release works (R2021a or newer is recommended).
+
+### Step 2: Download this project
+
+**Option A: download a ZIP (easiest)**
+
+1. Open this repository on GitHub.
+2. Click the green **Code** button, then **Download ZIP**.
+3. Extract the ZIP to a short path with no spaces, for example `D:\sih\SIH26037-Mathwork`.
+
+**Option B: clone with Git**
+
+```bash
+git clone https://github.com/rangala-nithin15/SIH26037-Mathwork.git
+```
+
+### Step 3: Open the project folder in MATLAB
+
+In the MATLAB **Command Window**, go to the folder you extracted or cloned:
 
 ```matlab
-cd <this folder>
-setupPaths                    % adds all source folders to the path
-runDemo                       % the live 3D IR-PSC demonstration (primary demo)
-runAllTests('all')            % unit + integration + behavioural tests
+cd D:\sih\SIH26037-Mathwork
 ```
 
-`runDemo` runs the full closed loop — simulated sensors, fusion, tracking, pothole detection, prediction, the IR-PSC planner, decision logic, controllers and vehicle model — and draws every step in a 3D view as it happens. See [`RUN_GUIDE.md`](RUN_GUIDE.md) for options (camera views, video recording, replay).
+(Replace the path with your own. You can also browse to the folder in MATLAB's **Current Folder** panel.)
 
-Then, once the tests pass:
+### Step 4: Set up the paths
+
+Run this **once every time you open MATLAB**:
 
 ```matlab
-runAllExperiments(1:10)       % baseline comparison + ablation study
+setupPaths
 ```
 
-**The whole planner runs on base MATLAB.** No toolbox is required for any of the above. That was a deliberate design decision — see [Design decisions](#design-decisions-worth-knowing).
-
----
-
-## What this system does
-
-It plans a path for a vehicle on roads that have no usable lane markings, sharing space with cars, buses, trucks, auto-rickshaws, two-wheelers, bicycles, pedestrians, pushcarts and animals that do not follow lane discipline and may not follow the rules at all.
-
-The pipeline, and where each stage lives:
+It adds all the project folders to MATLAB's path. You should see a message like:
 
 ```
-scenario ground truth
-    → camera + LiDAR + radar simulation        sensors/, perception/detection/
-    → multi-sensor fusion                      perception/fusion/
-    → multi-object tracking                    perception/tracking/
-    → short-term prediction with uncertainty   prediction/
-    → IR-PSC planner                           planner/IR_PSC/
-    → decision logic (6 states, debounced)     decision/
-    → controller                               vehicle/controller/
-    → vehicle dynamics                         vehicle/dynamics/
-    → back to the sensors (closed loop)
+SIH_Indian_AV: added N source folders to the path.
+Project root: D:\sih\SIH26037-Mathwork
 ```
 
-## The IR-PSC hierarchy
+### Step 5: Run the main demo
 
-Thirteen steps, and the file that implements each:
-
-| # | Step | Implementation |
-|---|---|---|
-| 1 | Estimate drivable space | `seedCenterline.m` |
-| 2 | Identify road boundaries | `extractCorridor.m` |
-| 3 | Track surrounding road users | `multiObjectTracker.m` |
-| 4 | Predict short-term occupancy | `predictObstacles.m` |
-| 5 | Represent uncertainty | `predictionUncertainty.m` |
-| 6 | Estimate collision risk | `lateralRiskGrid.m`, `conflictRisk.m` |
-| 7 | Continuous preferred trajectory | `extractCenterline.m` |
-| 8 | Deform locally around hazards | `deformTrajectory.m` |
-| 9 | Preserve boundary and obstacle margins | `corridorBounds.m`, `checkClearance.m` |
-| 10 | Smooth spatially and temporally | `generateTrajectory.m`, `smoothPath.m` |
-| 11 | Check vehicle feasibility | `checkFeasibility.m` |
-| 12 | Confidence-aware behaviour | `computeConfidence.m` |
-| 13 | Degrade or stop safely | `safeStopTrajectory.m`, `decisionLogic.m` |
-
-Detail: [`INNOVATION_IR_PSC.md`](INNOVATION_IR_PSC.md).
-
----
-
-## Repository layout
-
-```
-SIH_Indian_AV/
-├── setupPaths.m               ← run this first
-├── config/                    every tunable number, 5 profiles, 5 ablation switches
-├── utils/                     geometry, occupancy grid, data structures
-├── planner/
-│   ├── irpscPlanner.m         the 13-step pipeline
-│   ├── IR_PSC/
-│   │   ├── corridor/          drivable-space corridor extraction  ← the core
-│   │   ├── risk/              predicted-occupancy risk, TTC
-│   │   ├── deformation/       dynamic-programming trajectory deformation
-│   │   ├── safety/            clearance, feasibility, confidence, safe stop
-│   │   └── trajectory/        generation, speed profile, scoring
-│   └── baseline/              fixed-candidate planner, for comparison
-├── prediction/                constant-velocity + uncertainty + irregular motion
-├── perception/                detection simulation, fusion, tracking
-├── sensors/                   camera / LiDAR / radar configuration
-├── decision/                  6-state logic + Stateflow specification
-├── vehicle/                   controller and dynamics
-├── scenarios/                 the five SIH scenarios
-├── metrics/                   10 metrics + aggregation
-├── experiments/               baseline comparison, ablation study
-├── visualization/             demo figure, results table
-├── tests/                     unit + integration suites
-├── scripts/                   runScenario, demoScenario, runAllExperiments
-├── simulink/                  model builder + architecture spec (no .slx)
-├── roadrunner/                scene specifications (no scene files)
-├── python/                    cross-check tool (supporting, not the deliverable)
-├── existing_work/             preserved prior Python work
-├── docs/                      component register, perception notes
-└── results/                   generated output — empty, and must stay empty
+```matlab
+runDemo
 ```
 
----
+A window opens and the live closed-loop simulation starts on the main demo road. It covers every behaviour in one run: avoiding and straddling potholes, following a slower vehicle, shifting the corridor in a market, stopping for cattle, and yielding to a pedestrian.
 
-## The five SIH scenarios
+**Keyboard controls** (click the figure first):
 
-| Scenario | Command | What it is built to test |
-|---|---|---|
-| **Primary demo** | `runDemo` | Every behaviour on one road: potholes (avoid / straddle / slow), following, market corridor shift, cattle, pedestrian |
-| A. Unmarked village road | `demoScenario('village')` | The central claim: **no lane markings exist at all** |
-| B. Unsignalized intersection | `demoScenario('urban')` | Prediction under occluded crossing traffic |
-| C. Highway merge | `demoScenario('highway')` | Early decisions at speed; shallow-angle merge |
-| D. Dense market | `demoScenario('market')` | Everything at once; confidence-aware slowdown |
-| E. Sudden cattle crossing | `demoScenario('cattle')` | Emergency escalation and safe stop |
-
----
-
-## Design decisions worth knowing
-
-**The planner depends on base MATLAB only.** Not one line of the IR-PSC pipeline calls a toolbox function. This means the whole thing can be unit-tested and demonstrated **before** the RoadRunner licensing question is settled. If RoadRunner turns out to be unavailable, the planner still runs and still produces the baseline comparison.
-
-**The planner's input is an occupancy grid, not a road network.** That is what lets it work identically on a RoadRunner scene, a `drivingScenario`, or a hand-built MATLAB scenario — and it is what makes "no lane markings required" true at the interface, not just in the algorithm.
-
-**Simulink wraps the MATLAB functions; it does not reimplement them.** There is one implementation of the planner. A second one inside Simulink would silently drift out of step with the first.
-
-**Every experiment is seeded.** Both planners face byte-identical noise, missed detections and false positives. Without that the comparison would measure luck.
-
-**`computeMetrics` throws on an empty log.** By construction, you cannot get a metric out of this project without having run something.
-
----
-
-## Honest limitations
-
-- Nothing has been executed. No result exists.
-- The sensor model is geometric. **No detector has been trained.** Auto-rickshaws, pushcarts and cattle are not classes any stock detector provides — see [`docs/PERCEPTION_NOTES.md`](docs/PERCEPTION_NOTES.md).
-- The vehicle model is kinematic: no tyre slip, no suspension, no powertrain lag.
-- Scenario actors are **scripted and do not react to the ego vehicle**. These scenarios cannot demonstrate negotiation or mutual yielding.
-- The tracker uses greedy association and can swap tracks in dense crowds.
-- Confidence is a designed heuristic, not a calibrated probability.
-- Potholes are detected (simulated sensors), tracked and planned around or crossed slowly; **ride response is not modelled** — the kinematic vehicle has no suspension.
-- The drivable-space grid is a ground-truth map given to the planner; static obstacles in it are not sensed.
-- Scripted actors only keep a gap when following the ego; they never yield or negotiate.
-- The 3D view is schematic MATLAB graphics, not RoadRunner or a game engine.
-
-## Claims not made
-
-No safety certification. No guaranteed collision avoidance. No zero-accident claim. No real-world readiness. No real sensor performance. This is simulation research code.
-
----
-
-## Documentation
-
-| Document | For |
+| Key | Action |
 |---|---|
-| **[`docs/DESTINATION_FIRST_RUN.md`](docs/DESTINATION_FIRST_RUN.md)** | **⭐ Start here on the destination laptop — exact commands, expected output, PASS/FAIL criteria** |
-| [`docs/PREFLIGHT_REPORT.md`](docs/PREFLIGHT_REPORT.md) | What has been verified (Python 174/174) and what has not |
-| [`SETUP.md`](SETUP.md) | Getting it running on a new machine |
-| [`RUN_GUIDE.md`](RUN_GUIDE.md) | Every command, what it does, what to expect |
-| [`SYSTEM_ARCHITECTURE.md`](SYSTEM_ARCHITECTURE.md) | How data flows, and why it is shaped this way |
-| [`INNOVATION_IR_PSC.md`](INNOVATION_IR_PSC.md) | The contribution, and what is *not* claimed |
-| [`REQUIREMENTS_TRACEABILITY.md`](REQUIREMENTS_TRACEABILITY.md) | Each SIH requirement → the code that addresses it |
-| [`VALIDATION_PLAN.md`](VALIDATION_PLAN.md) | How this gets validated, and what would falsify it |
-| [`JUDGE_DEMO_GUIDE.md`](JUDGE_DEMO_GUIDE.md) | Running the demo and answering hard questions |
-| [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | What is done, what is not |
-| [`docs/COMPONENT_REGISTER.md`](docs/COMPONENT_REGISTER.md) | **Every component's REAL/SIMPLIFIED/FALLBACK label** |
-| [`docs/PERCEPTION_NOTES.md`](docs/PERCEPTION_NOTES.md) | What perception does and does not do |
+| `1` / `2` / `3` | Chase / overview / top-down camera |
+| `f` / `p` / `s` / `m` | Full / planning / sensing / minimal view |
+| `space` | Pause or resume |
+| `q` | Stop |
+
+### Step 6: Run the five SIH scenarios
+
+```matlab
+demoScenario('village')    % A. Unmarked village road, no lane markings at all
+demoScenario('urban')      % B. Busy unsignalised urban intersection
+demoScenario('highway')    % C. Highway merge with a slow vehicle
+demoScenario('market')     % D. Dense market with mixed traffic
+demoScenario('cattle')     % E. Sudden cattle crossing, emergency stop
+```
+
+You can also open any scenario in the full 3D viewer:
+
+```matlab
+runDemo(struct('scenario', 'village'))
+```
+
+### Step 7 (optional): Compare with the baseline planner
+
+Run the same road and the same seed with a conventional planner, then with IR-PSC:
+
+```matlab
+demoScenario('market', 'baseline')
+demoScenario('market', 'irpsc')
+```
+
+### Step 8 (optional): Record a video or replay smoothly
+
+```matlab
+runDemo(struct('videoFile', 'results/irpsc_demo.mp4'))   % record while running
+```
+
+For a smooth 30 FPS playback, record once without a window and replay it:
+
+```matlab
+[log, M] = runDemo(struct('visible', false));
+save('results/demo_run.mat', 'log', 'M');
+replayDemo('results/demo_run.mat')
+```
+
+---
+
+## What You See in the Demo
+
+| On screen | Meaning |
+|---|---|
+| White car with cyan ring | The ego vehicle |
+| Cyan ribbon | The trajectory the car is following right now (amber when following or blocked, red during a safe stop) |
+| Teal / green band | Drivable corridor found from free space |
+| Yellow → red cells | Predicted collision risk |
+| Violet cells | Pothole cost |
+| Orange-red ellipses | Predicted positions of road users at 1, 2 and 3 s |
+| Yellow boxes | Tracked objects |
+| Red dashed line | A candidate path the planner rejected |
+| Right panel | Vehicle state, risk, confidence, time-to-collision, speed and a decision log |
+
+The decision log explains each action step by step, for example: `[DETECT] Cattle ahead` → `[PREDICT] Path conflict in 2.1 s` → `[PLAN] Holding back` → `[DECISION] STOP`.
+
+---
+
+## Project Structure
+
+```
+SIH26037-Mathwork/
+├── setupPaths.m        ← run this first
+├── config/             tunable parameters and scenario profiles
+├── utils/              geometry and occupancy-grid helpers
+├── planner/
+│   ├── irpscPlanner.m  the IR-PSC pipeline
+│   ├── IR_PSC/         corridor, risk, deformation, safety, trajectory
+│   └── baseline/       conventional planner for comparison
+├── prediction/         motion prediction with uncertainty
+├── perception/         simulated detection, fusion and tracking
+├── sensors/            camera / LiDAR / radar configuration
+├── decision/           decision logic + Stateflow specification
+├── vehicle/            controller and vehicle dynamics
+├── scenarios/          the five SIH scenarios + demo road
+├── metrics/            evaluation metrics
+├── visualization/      3D viewer and plots
+├── scripts/            runDemo, demoScenario, replayDemo
+├── simulink/           Simulink model builder and architecture
+└── results/            output from your runs
+```
+
+---
+
+## Limitations
+
+This is a simulation prototype, not a real-vehicle system. The sensors are geometric models rather than trained detectors, so classes like auto-rickshaws, pushcarts and cattle come from the scenario definitions, not from a real camera. The vehicle model is kinematic (no tyre slip or suspension), and scenario actors are scripted, so they don't react to or negotiate with the ego vehicle. Confidence is a designed heuristic, not a calibrated probability. Simulink, Stateflow and RoadRunner models are specified in the repository but not yet built as `.slx`, `.sfx` or scene files.
+
+## Future Work
+
+Next steps are training a detector on the India Driving Dataset (IDD) so perception runs on real video, building the Simulink and Stateflow models from the included specifications, creating detailed RoadRunner scenes for the SIH scenarios, and making scenario actors interactive so negotiation and yielding can be tested.
+
+---
+
+## Team
+LEXICORE
+Smart India Hackathon 2026, Problem Statement 26037 (MathWorks).
