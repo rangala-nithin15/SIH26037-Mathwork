@@ -1,0 +1,25 @@
+# Python dependencies for the SIH_Indian_AV supporting tools.
+#
+# NOTE: Python is a SUPPORTING component in this project, not the deliverable.
+# The deliverable is the MATLAB/Simulink system, which needs none of this.
+#
+# Recommended interpreter: Python 3.11 or 3.12.
+# Avoid 3.14 -- it is likely newer than any current MATLAB release accepts,
+# which matters only if a MATLAB<->Python bridge is ever required.
+
+# --- Required for python/crosscheck_frenet.py ---
+numpy>=1.26
+
+# --- Required for the preserved prior work in existing_work/ ---
+# (also listed in existing_work/mathworks_scraper/requirements.txt)
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0          # optional; the scraper falls back to html.parser without it
+pytest>=8.0
+
+# --- Optional: only if Python-side perception prototyping is undertaken ---
+# Not required for anything in the MATLAB deliverable.
+# opencv-python>=4.9
+# matplotlib>=3.8
+# torch>=2.2
+# ultralytics>=8.1
