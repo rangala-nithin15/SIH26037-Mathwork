@@ -1,0 +1,1477 @@
+<!DOCTYPE html><html lang="en"><head><script nonce="r0syoTa9IdY3gQP6WtOpHkVI">window.mwDocMetadata = {"isLoggedIn":false,"exampleVersionSpec":["\u003e=25.1"],"isArchivedDoc":false,"release":"R2026a"};</script>
+	
+	<!-- Template Source Page: /content/mathworks/nl/en/template-service/help/full-header-footer-offcanvas-bs5 -->
+	<!-- Template Source Env: stage -->
+	<!-- Template Last Modified: 2026-06-23T07:46:24-04:00 -->
+	
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	
+
+	<link rel="icon" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/favicon.20260806155224309.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://nl.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	
+	
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:site" content="@MathWorks"/>
+		
+		<meta name="twitter:image" content="https://nl.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+		<meta property="og:image:url" content="https://nl.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+		<meta property="og:image:secure_url" content="https://nl.mathworks.com/template-service/help/full-header-footer-offcanvas-bs5/_jcr_content/ogImageSecureUrl.adapt.1200.medium.jpg/1744384063106.jpg"/>
+	
+	<meta property="og:url" content="https://nl.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<meta property="og:description" content="Dynamically plan the motion of an autonomous vehicle based on estimates of the surrounding environment."/>
+	<meta property="og:title" content="Object Tracking and Motion Planning Using Frenet Reference Path - MATLAB &amp; Simulink"/>
+	<meta property="og:type" content="website"/>
+	
+
+	
+
+	<script nonce="r0syoTa9IdY3gQP6WtOpHkVI"> (function() { if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.classList.add('mw-theme-dark'); } else { document.documentElement.classList.add('mw-theme-light'); } })();	</script>
+	
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/webvitals.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+
+	
+	
+
+	
+	
+	
+
+	
+
+	
+	
+		
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/bootstrap5.min.20260806155224309.css" type="text/css"/>
+
+
+
+		
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+	
+	
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/offcanvasv5.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-300.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-400.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-500.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-italic-700.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-300.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-400.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-500.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/roboto/roboto-latin-normal-700.20260806155224309.woff2" rel="preload" as="font" type="font/woff2" crossorigin=""/>
+	<link href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/fonts/mathworks.20260806155224309.woff" rel="preload" as="font" type="font/woff" crossorigin=""/>
+
+	
+		
+		<script nonce="r0syoTa9IdY3gQP6WtOpHkVI">(function(g,b,d,f){(function(a,c,d){if(a){var e=b.createElement("style");e.id=c;e.innerHTML=d;a.appendChild(e)}})(b.getElementsByTagName("head")[0],"at-body-style",d);setTimeout(function(){var a=b.getElementsByTagName("head")[0];if(a){var c=b.getElementById("at-body-style");c&&a.removeChild(c)}},f)})(window,document,"[class*='personalization-container']:not([id^='web-application']) {opacity: 0 !important}",1E3);</script> <script src="//assets.adobedtm.com/d0cc0600946eb3957f703b9fe43c3590597a8c2c/satelliteLib-e8d23c2e444abadc572df06537e2def59c01db09.js" async="" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+	
+	
+
+	
+
+	
+
+	<title>Object Tracking and Motion Planning Using Frenet Reference Path - MATLAB &amp; Simulink
+</title>
+	
+
+
+
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/jquery.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script><script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/jquery-migrate.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<meta xmlns="http://www.w3.org/1999/xhtml" http-equiv="Content-Script-Type" content="text/javascript"/>
+
+<link xmlns="http://www.w3.org/1999/xhtml" href="/help/releases/R2026a/includes/web/css/doc_center.css" rel="stylesheet" type="text/css"/>
+<link xmlns="http://www.w3.org/1999/xhtml" href="/help/releases/R2026a/includes/web/css/doc_center_localnav.css" rel="stylesheet" type="text/css"/>
+
+<script src="/help/releases/R2026a/includes/shared/equationrenderer/release/MathRenderer.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/l10n.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/docscripts.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/f1help.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/mw.imageanimation.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/jquery.highlight.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/product/scripts/underscore-min.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+<script xmlns="http://www.w3.org/1999/xhtml" src="/help/releases/R2026a/includes/shared/scripts/localstorage.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+<script src="/help/releases/R2026a/includes/web/scripts/overload.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/helpservices.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/product/scripts/productfilter.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/matlab_dialog_shared.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<link href="/help/releases/R2026a/includes/shared/highlight/styles/mwdochighlight.min.css" rel="stylesheet" type="text/css"/>
+<script src="/help/releases/R2026a/includes/shared/highlight/highlight.min.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<link href="/help/releases/R2026a/includes/web/css/doc_center_print.css" rel="stylesheet" type="text/css" media="print"/>
+
+<script src="/matlabcentral/jscript/userarea-typeahead-v1.js" defer="" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+  <script type="text/javascript" nonce="r0syoTa9IdY3gQP6WtOpHkVI">
+    document.addEventListener("DOMContentLoaded", function () {
+      const possibleSelectors = ['#query','#inpage_query'];
+      possibleSelectors.forEach(selector => {
+        const inputElement = document.querySelector(selector);
+        if (inputElement) {
+          const customElement = document.createElement('userarea-typeahead');
+          customElement.setAttribute('input-selector', selector);
+          customElement.setAttribute('collection', 'documentation');
+          customElement.setAttribute('app-label', 'Documentation');
+          customElement.setAttribute('env', 'prod');
+          customElement.setAttribute('site-language', 'en');
+          customElement.setAttribute('blank-state', 'true');
+          document.body.appendChild(customElement);
+        }
+      });
+    });
+</script> 
+	<meta name="robots" content="all"/><meta name="description" content="Dynamically plan the motion of an autonomous vehicle based on estimates of the surrounding environment."/><style>#localnav:has(.alert) { height:calc(44px + 36px); padding-top:36px; }
+			#localnav .alert { width: 100%; padding-top:2px; padding-right:5px; padding-bottom:2px; border-top:none; border-left:none; border-right:none; border-radius:0; display:flex; align-items:center; flex-direction:row; flex-wrap:nowrap; gap:7px; position:absolute; top:0; z-index:2;  }
+			#localnav .alert p { margin-bottom:0; }
+			#localnav .alert-dismissible .btn-close { margin-left:auto; position:relative; }</style><link rel="alternate" hreflang="x-default" href="https://www.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="de" href="https://de.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="en" href="https://www.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="es" href="https://la.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="fr" href="https://fr.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="it" href="https://it.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="ja" href="https://jp.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="ko" href="https://kr.mathworks.com/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/>
+	<link rel="alternate" hreflang="zh" href="https://ww2.mathworks.cn/help/fusion/ug/object-tracking-and-motion-planning-using-frenet-reference-path.html"/><script nonce="98a9bf493bcbedb43fe421af013fb7e1">bazadebezolkohpepadr="823937312"</script><script type="text/javascript" src="https://nl.mathworks.com/akam/13/311c4a79" nonce="98a9bf493bcbedb43fe421af013fb7e1" defer></script></head>
+
+
+
+	<body id="template_offcanvas" class="site_lang_en templateservice offcanvas_fixed
+		  
+		  
+		  
+		  
+ 		  
+		  -has_usernav
+		  -is_full_header
+		  
+		  " data-cid="helpcenter">
+		<a class="skip_link visually-hidden-focusable" href="#main">Skip to content</a>
+
+		
+		
+
+
+	<div class="sticky-top" id="sticky_container">
+		
+
+	<header class="-has_matrix
+					 -has_mwa
+					 -has_store
+					 -has_topnav
+					 -has_subnav
+					 ">
+		<nav class="navbar navbar-expand-lg" aria-label="Main navigation">
+			<div class="container-fluid container-lg">
+				<div class="d-lg-flex flex-row align-items-center" id="header_content_container">
+					<a class="navbar-brand d-inline-flex" href="/?s_tid=user_nav_logo">
+						
+						<img src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo-membrane.20260806155224309.svg" class="mw_logo" alt="MathWorks" width="34" height="30"/>
+					</a>
+
+					<div class="sectionHead sectionhead containsResourceName resourceClass-sectionhead">
+
+
+	<p class="d-inline-flex d-lg-none h1">
+		<a class="add_cursor_pointer" href="/help/?s_tid=user_nav_help">MATLAB Help Center</a>
+		
+	</p>
+	
+
+
+
+
+</div>
+
+
+					<div class="d-flex d-lg-none" id="global_mobile_actuator_container_search">
+						<button class="navbar-toggler btn collapsed" id="global_search_mobile_actuator" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#global_search_mobile" data-bs-target="#global_search_mobile" aria-controls="global_search_mobile" aria-expanded="false" aria-label="Toggle Search">
+							<span class="icon-search"></span>
+						</button>
+					</div>
+					<div class="navbar-collapse collapse" id="global_search_mobile">
+						<div id="global_search_mobile_placeholder"></div>
+						<div id="global_search_container">
+							<div class="sectionHeadSearchBox sectionheadsearchbox containsResourceName resourceClass-sectionheadsearchbox">
+
+	
+
+	
+		
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/sectionheadsearchbox/bs5.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+		
+		
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/typeahead.min.20260806155224309.css" type="text/css"/>
+
+
+
+		
+		
+		
+			
+		
+		<form name="search" id="site_search" class="site_search" action="/search/user-center" method="get" data-release="R2026a" data-language="en">
+			<div class="input-group">
+				<label id="search-mathworks" class="visually-hidden" for="query">Search or ask a question</label>
+				<input type="hidden" name="c[]" id="site_search_collection" value="usercenter" disabled=""/>
+				<input type="search" name="q" id="query" class="form-control conjoined_search" aria-autocomplete="list" autocomplete="off" role="combobox" aria-controls="search_suggestions" aria-haspopup="listbox" aria-expanded="true" aria-activedescendant="" placeholder="Search or ask a question" data-site-domain="nl" data-site-language="en" data-typeahead-proxy-url="https://services.mathworks.com/typeahead" data-typeahead-type="basic" data-typeahead-result-count="10" data-label-suggestions="Suggestions" data-label-see-all-results="See all results" aria-labelledby="search-mathworks"/>
+				<button type="button" id="clearsearch" class="btn btn_color_blue btn-outline icon-remove visually-hidden-focusable" aria-label="Clear search"></button>
+				
+				
+				<button type="submit" id="searchbutton" class="btn btn_color_blue btn-outline icon-search" aria-label="Search"></button>
+			</div>
+		</form>
+	
+
+	
+
+</div>
+
+						</div>
+					</div>
+
+
+					<div class="d-flex d-lg-none" id="global_mobile_actuator_container_navigation">
+						<button class="navbar-toggler collapsed btn" id="global_navigation_mobile_actuator" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#global_navigation" data-bs-target="#global_navigation" aria-controls="global_navigation" aria-expanded="false" aria-label="Toggle Main Navigation">
+							<span class="icon-menu-full"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="global_navigation">
+						
+						<div class="topNavigation topnavigation containsResourceName resourceClass-topnavigation">
+
+
+
+	<ul class="navbar-nav flex-grow-1 align-items-lg-center mb-0">
+		
+		
+			<li class="nav-item dropdown" id="globalnav_item_helpcenter">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link active " href="/help/?s_tid=user_nav_help">
+
+		
+
+		
+			
+			MATLAB Help Center</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+			<li class="nav-item dropdown" id="globalnav_item_community">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/matlabcentral/?s_tid=user_nav_community">
+
+		
+
+		
+			
+			Community</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+			<li class="nav-item dropdown" id="globalnav_item_learning">
+				
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="https://matlabacademy.mathworks.com/?s_tid=user_nav_learning">
+
+		
+
+		
+			
+			Learning</a>
+
+		
+		
+	
+
+				
+			</li>
+		
+
+		
+		<li class="nav-item  -alignment_lg_end" id="globalnav_item_matlab">
+			
+			
+
+			
+	
+	
+	
+
+	
+
+	<a class="not-logged-in btn btn_color_blue d-block d-lg-inline-flex " data-link="lead" data-offertype="trial" href="/campaigns/products/trials.html?prodcode=ML&amp;s_tid=user_nav_getml" style="display:none !important;">
+
+		
+
+		
+			
+			Get MATLAB</a>
+
+		
+		
+	
+
+			
+	
+	
+	
+
+	
+
+	<a class="logged-in btn btn_color_blue d-block d-lg-inline-flex " data-link="lead" data-offertype="trial" href="/campaigns/products/trials.html?prodcode=ML&amp;s_tid=user_nav_getml" style="display:none !important;">
+
+		
+
+		
+			
+			MATLAB</a>
+
+		
+		
+	
+
+
+		</li>
+
+		
+		
+			<li class="nav-item dropdown -alignment_lg_end" id="globalnav_item_mwa">
+				<a aria-label="Sign In to Your MathWorks Account" class="nav-link headernav_login mwa-nav_login" href="#" id="mwanav_item_login" style="display: none;">
+					Sign In
+				</a>
+
+				<a aria-expanded="false" class="nav-link headernav_logout dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" id="mwanav_actuator" role="button" style="display: none;" title="Access your MathWorks Account">
+					<span class="mwanav_avatar mwa_image_drop_down"></span>
+					<span class="mobile_account_name visually_hidden_xxl visually_hidden_xl visually_hidden_lg hidden-md hidden-lg"></span>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-lg-end" id="mwanav_dropdown_menu">
+					<li id="mwanav_item_account"><a class="mwa-account dropdown-item">My Account</a></li>
+					<li id="mwanav_item_community"><a class="mwa-community-profile dropdown-item">My Community Profile</a></li>
+					<li id="mwanav_item_associate"><a class="mwa-link-license dropdown-item">Link License</a></li>
+					<li><hr class="dropdown-divider"/></li>
+					<li id="mwanav_item_logout"><a class="mwa-logout dropdown-item">Sign Out</a></li>
+				</ul>
+			</li>
+		
+
+		
+
+		
+
+		<li class="nav-item d-block d-lg-none" id="globalnav_item_mobile_cta_support">
+			
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/support/contact_us.html" id="mobile_cta_support">
+
+		
+
+		
+			<span class="icon-phone"></span>
+			Contact MathWorks Support</a>
+
+		
+		
+	
+
+		</li>
+
+		<li class="nav-item d-block d-lg-none" id="globalnav_item_mobile_cta_corporate">
+			
+	
+	
+	
+
+	
+
+	<a class="nav-link " href="/" id="mobile_cta_corporate">
+
+		
+
+		
+			<span class="icon-membrane"></span>
+			Visit mathworks.com</a>
+
+		
+		
+	
+
+		</li>
+
+		<li class="nav-item dropdown d-none d-lg-block -alignment_lg_end" id="globalnav_item_search">
+			<a aria-expanded="false" aria-label="Search" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" href="#" role="button"><span class="icon-search"></span></a>
+			<div class="dropdown-menu">
+				<div class="container-lg">
+					<div class="row align-items-center">
+						
+						
+							<div class="col">
+								<div id="global_search_desktop_placeholder"></div>
+							</div>
+						
+					</div>
+				</div>
+			</div>
+		</li>
+
+		<li class="nav-item d-none d-lg-block -alignment_lg_end" id="globalnav_item_matrix">
+			<mw-matrix lang="en" tier="DOTCOM" env="prod" bsversion="bs5" class="nav-link" host="https://nl.mathworks.com"></mw-matrix>
+		</li>
+	</ul>
+
+
+	
+
+
+</div>
+
+					</div>
+				</div>
+
+				
+			</div>
+		</nav>
+	</header>
+
+
+
+		
+		
+		
+	</div>
+
+
+
+
+
+		
+<div id="offcanvas_container">
+	
+
+	<div class="collapse collapse-horizontal" id="offcanvas_menu" data-offcanvas-id="helpcenter-offcanvas">
+		<button class="btn collapsed" id="offcanvas_actuator" type="button" data-bs-toggle="collapse" data-bs-target="#offcanvas_menu" aria-expanded="false" aria-controls="offcanvas_menu">
+			<span class="icon-offcanvas-menu"><span class="visually-hidden">Off-Canvas Navigation Menu Toggle</span></span> <span class="offcanvas_actuator_label" aria-hidden="true">Contents</span>
+		</button>
+		<div id="offcanvas_menu_content"><nav class="offcanvas_nav" role="navigation">
+<div class="search_refine_v4 -presentation_browse">
+<div id="facets_area">
+<div class="personalization-container" id="web-application-offcanvas-container">
+<ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_breadcrumb list-unstyled" id="ul_left_nav_ancestors">
+  <li itemscope="" itemtype="http://www.schema.org/ListItem" itemprop="itemListElement">
+	  <a href="/help/index.html?s_tid=CRUX_lftnav" itemprop="item">
+      <span itemprop="name">Documentation Home</span>
+		</a>
+    <meta itemprop="position" content="1"/>
+	</li>
+</ol>
+<ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_breadcrumb list-unstyled" id="ul_left_nav_productgroups">
+<li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+	<a href="/help/overview/radar.html?s_tid=hc_product_group_bc" itemprop="item">
+    <span itemprop="name">Radar</span>
+	</a>
+  <meta itemprop="position" content="1"/>
+</li>
+<li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+	<a href="/help/overview/robotics-and-autonomous-systems.html?s_tid=hc_product_group_bc" itemprop="item">
+    <span itemprop="name">Robotics and Autonomous Systems</span>
+	</a>
+  <meta itemprop="position" content="2"/>
+</li></ol><ol itemscope="" itemtype="https://schema.org/BreadcrumbList" class="nav_disambiguation list-unstyled"><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../index.html?s_tid=CRUX_lftnav" id="index" itemprop="item">
+              <span itemprop="name">Sensor Fusion and Tracking Toolbox</span>
+            </a>
+            <meta itemprop="position" content="1"/>
+					</li><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../reference-applications.html?s_tid=CRUX_lftnav" id="mw_45a23ae2-6696-41b1-8113-09a86fb50252" itemprop="item">
+              <span itemprop="name">Applications</span>
+            </a>
+            <meta itemprop="position" content="2"/>
+					</li><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../tracking-for-autonomous-systems.html?s_tid=CRUX_lftnav" id="mw_fc41154e-b97e-4631-b32a-6e5449e3ad9f" itemprop="item">
+              <span itemprop="name">Tracking for Autonomous Systems</span>
+            </a>
+            <meta itemprop="position" content="3"/>
+					</li><li itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+						<a href="../motion-planning.html?s_tid=CRUX_lftnav" id="mw_ad87cf76-2da5-44ff-81df-03de0dfc1cbf" itemprop="item">
+              <span itemprop="name">Motion Planning</span>
+            </a>
+            <meta itemprop="position" content="4"/>
+					</li></ol><ul class="nav_scrollspy nav list-unstyled" id="nav_scrollspy" aria-label="On this page">
+	<li class="nav_scrollspy_function nav-item notranslate">
+    <a class="intrnllnk" href="#doc_center_content" style="color: inherit; text-decoration: none;">Object Tracking and Motion Planning Using Frenet Reference Path</a>
+	</li>
+
+<li class="nav_scrollspy_title" id="SSPY810-refentry">On this page</li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-1">Introduction</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-3">Setup</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-7">Run Simulation</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-8">Results</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-12">Summary</a></li><li class="nav-item"><a class="intrnllnk nav-link" href="#ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-13">Supporting Functions</a></li></ul></div>
+</div>
+</div>
+</nav>
+			<div class="sidebar parsys containsResourceName resourceClass-parsys"><div class="targetcontainer containsResourceName resourceClass-targetcontainer section">
+
+
+
+<div class="personalization-container " id="web-application-offcanvas-container">
+	<div><div class="targetContent parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+</div></div>
+
+</div>
+
+		</div>
+		
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/offcanvasv5.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+	</div>
+
+
+	<div id="offcanvas_body_container">
+		<div id="offcanvas_body" class=" -has_stickynav">
+			
+			<div class="introParsys parsys containsResourceName resourceClass-parsys">
+</div>
+
+			<div class="content_container p-0" id="content_container">
+				<div class="container-fluid container-lg">
+					<div class="row">
+						<div class="col" id="offcanvas_fixed_menu_container"> </div>
+						<div class="col" id="offcanvas_content_container">
+							
+
+	
+	<div class="localnav" id="localnav">
+		<div class="localnav_container">
+			<div class="container-fluid container-lg">
+				<div class="row">
+					<div class="col-12">
+						<nav class="navbar navbar-expand-lg" aria-label="Local Navigation">
+							<button class="navbar-toggler" type="button" id="localnav_actuator" data-toggle="collapse" data-bs-toggle="collapse" data-target="#local_navigation" data-bs-target="#local_navigation" aria-controls="localnav" aria-expanded="false" aria-label="Toggle navigation"><span class="icon-kebab"></span></button>
+							<div class="collapse navbar-collapse" id="local_navigation">
+								<div class="localNavigation localnav containsResourceName resourceClass-localnav">
+
+
+
+	
+	<ul class="navbar-nav  crux_resource_list crux_browse" id="localnav_navbar">
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_documentation">
+		<a class="nav-link active" data-id="" href="/help/fusion/motion-planning.html?s_tid=CRUX_topnav">
+			Documentation
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_examples">
+		<a class="nav-link " data-id="" href="/help/fusion/examples.html?s_tid=CRUX_topnav&amp;category=motion-planning">
+			Examples
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_function">
+		<a class="nav-link " data-id="" href="/help/fusion/referencelist.html?type=function&amp;s_tid=CRUX_topnav&amp;category=motion-planning">
+			Functions
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_block">
+		<a class="nav-link " data-id="" href="/help/fusion/referencelist.html?type=block&amp;s_tid=CRUX_topnav&amp;category=motion-planning">
+			Blocks
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_app">
+		<a class="nav-link " data-id="" href="/help/fusion/referencelist.html?type=app&amp;s_tid=CRUX_topnav&amp;category=motion-planning">
+			Apps
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_video">
+		<a class="nav-link " data-id="" href="/support/search.html?fq%5B%5D=asset_type_name:video&amp;fq%5B%5D=category:fusion/motion-planning&amp;page=1&amp;s_tid=CRUX_topnav">
+			Videos
+	    </a>
+	</li>
+
+	<li class="nav-item crux_resource" data-nav-id="crux_nav_answers">
+		<a class="nav-link " data-id="" href="/support/search.html?fq%5B%5D=asset_type_name:answer&amp;fq%5B%5D=category:fusion/motion-planning&amp;page=1&amp;s_tid=CRUX_topnav">
+			Answers
+	    </a>
+	</li>
+</ul>
+
+
+
+
+</div>
+
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+							<div id="offcanvas_focus_actuator" tabindex="0" class="d-block d-md-none"><span class="visually-hidden">Main Content</span></div>
+							
+
+<main id="main" tabindex="-1">
+	
+	<section><div class="mainParsys parsys containsResourceName resourceClass-parsys"><div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+#global_search_container > .sectionHeadSearchBox:has(#suggestions) { 
+    align-items: flex-end;
+    
+    #search_scope_doc { width:100%; max-width:540px; }
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+@media (max-width:991.98px) {
+
+    #localnav .nav-item:not(:first-child) .nav-link { padding-left:24px !important; }
+    #localnav .dropdown-menu .dropdown-item { padding-left:calc(var(--bs-dropdown-item-padding-x) * 3); }
+
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+	
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/akamai.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/enhancedchat.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+
+<style>
+@media (max-width: 991.98px) {
+    #localnav_actuator { width:auto !important; padding-left:10px !important; display: flex !important; align-items:center !important; flex-direction: row-reverse !important; justify-content:center !important; }
+    #localnav_actuator:after { padding-right:5px; content:"Resources"; font-size:14px; white-space:nowrap; }
+    #localnav_actuator .icon-kebab { position:relative; top:-1px; }
+    #localnav_actuator .icon-kebab:before { content: "\e60f" !important; font-size:16px; }
+}
+</style>
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/mathworks-aem.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/searchrefine.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/panel.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/card.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/search.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+	
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/form.min.20260806155224309.css" type="text/css"/>
+
+
+
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/nuggets.min.20260806155224309.css" type="text/css"/>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/handlebars.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/nuggets.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+	
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+
+
+
+	
+	
+
+
+
+</div>
+<div class="cssjs containsResourceName section resourceClass-cssjs">
+
+
+
+
+
+	
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/accordion.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/alert.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/band.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/blockquote.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/image.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/inpagenav.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/table.min.20260806155224309.css" type="text/css"/>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/accordion.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/panel.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+	
+	
+
+
+
+</div>
+<div class="targetcontainer containsResourceName resourceClass-targetcontainer section">
+
+
+
+<div class="personalization-container " id="web-application-body-container">
+
+
+
+
+
+
+<section xmlns="http://www.w3.org/1999/xhtml" id="doc_center_content" itemprop="content" lang="en" data-language="en" data-bs-spy="scroll" data-bs-target="#nav_scrollspy"><div id="pgtype-topic">
+<section><h1 class="r2026a" itemprop="title content" id="mw_2394b30a-fe1f-433a-9735-04b36f3cff93">Object Tracking and Motion Planning Using Frenet Reference Path</h1><div class="doc_topic_desc"><div class="purpose_container"><em>Since R2021b</em></div></div><div class="examples_short_list hidden_ios_android" data-products="ML DR TF NV"><div data-pane="metadata" class="card metadata_container"><div class="card-body metadata_content"><p class="add_margin_5">This example uses:</p><ul class="list-unstyled add_border_bottom example_product_list" itemprop="requiredprods"><li><a class="coming_from_product" href="matlab:matlab.internal.addons.showAddon(&#39;DR&#39;)">Automated Driving Toolbox</a><a class="not_coming_from_product" href="../../driving/index.html">Automated Driving Toolbox</a></li><li><a class="coming_from_product" href="matlab:matlab.internal.addons.showAddon(&#39;TF&#39;)">Sensor Fusion and Tracking Toolbox</a><a class="not_coming_from_product" href="../../fusion/index.html">Sensor Fusion and Tracking Toolbox</a></li><li><a class="coming_from_product" href="matlab:matlab.internal.addons.showAddon(&#39;NV&#39;)">Navigation Toolbox</a><a class="not_coming_from_product" href="../../nav/index.html">Navigation Toolbox</a></li></ul><div class="d-grid"><a class="btn btn_color_blue" data-ex-genre="Live Script" href="matlab:openExample(&#39;driving_fusion_nav/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample&#39;)">Open Live Script</a></div></div></div></div><div itemscope="" itemtype="http://www.mathworks.com/help/schema/MathWorksDocPage/Example" itemprop="example" class="em_example"><meta itemprop="exampleid" content="driving_fusion_nav-ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample"/><meta itemprop="exampletitle" content="Object Tracking and Motion Planning Using Frenet Reference Path"/></div><span id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample" class="anchor_target"></span><p class="shortdesc">This example shows you how to dynamically replan the motion of an autonomous vehicle based on the estimate of the surrounding environment. You use a Frenet reference path and a joint probabilistic data association (JPDA) tracker to estimate and predict the motion of other vehicles on the highway. Compared to the <a class="a" data-docid="nav_ug#mw_24609bbb-53bc-4aa3-9ca2-f8b0d301cb27" href="../../nav/ug/highway-trajectory-planning-using-frenet.html">Highway Trajectory Planning Using Frenet Reference Path</a><span role="cross_prod"> (Navigation Toolbox)</span> example, you use these estimated trajectories from the multi-object tracker in this example instead of ground truth for motion planning. </p><div class="procedure"><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-1">Introduction</h3><p>Dynamic replanning for autonomous vehicles is typically done with a local motion planner. The local motion planner is responsible for generating optimal trajectory based on a global plan and real-time information about the surrounding environment. The global plan for highway trajectory planning can be described as a pre-generated coordinate list of the highway centerline. The surrounding environment can be described mainly in two ways:</p><div class="orderedlist"><ol style="list-style: decimal;"><li><p>Discrete set of objects in the surrounding environment with defined geometries.</p></li><li><p>Discretized grid with estimates about free and occupied regions in the surrounding environment.</p></li></ol></div><p>In the presence of dynamic obstacles, a local motion planner also requires predictions about the surroundings to assess the validity of planned trajectories. In this example, you represent the surrounding environment using the <span class="emphasis"><em>discrete set of objects</em></span> approach. For an example using discretized grid, refer to the <a class="a" data-docid="fusion_ug#mw_cffcf6f6-531b-4e84-800b-8120fd74fd7f" href="motion-planning-in-urban-driving-environments-using-dynamic-occupancy-grid-map.html">Motion Planning in Urban Environments Using Dynamic Occupancy Grid Map</a> example.</p><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-2">Object State Transition and Measurement Modeling</h4><p>The object list and their future predictions for motion planning are typically estimated by a multi-object tracker. The multi-object tracker accepts data from sensors and estimates the list of objects. In the tracking community, this list of objects is often termed as <span class="emphasis"><em>track list.</em></span> </p><p>In this example, you use radar and camera sensors and estimate the track list using a JPDA multi-object tracker. The first step towards using any multi-object tracker is defining the object state, how the state evolves with time (state transition model) and how the sensor perceives it (measurement model). Common state transition models include constant-velocity model, constant-acceleration model etc. However, in the presence of map information, road network can be integrated into the motion model. In this example, you use a Frenet coordinate system to describe the object state at any given time step, <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><mi>k</mi></mrow></math></span>. </p><p></p>
+<div class="code_responsive"><p class="programlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="block"><mrow><msub><mrow><mi>x</mi></mrow><mrow><mi>k</mi></mrow></msub><mo>=</mo><mrow><mo>[</mo><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub><munderover accent="true"><mrow><mspace width="0.2777777777777778em"></mspace><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub><mspace width="0.2777777777777778em"></mspace></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub><mspace width="0.2777777777777778em"></mspace><munderover accent="true"><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover></mrow><mo>]</mo></mrow></mrow></math></p></div><p></p><p>where <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></math></span> and <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub></mrow></math></span>represents the distance of the object along and perpendicular to highway centerline, respectively. You use a constant-speed state transition model to describe the object motion along the highway and a decaying-speed model to describe the motion perpendicular to the highway centerline. This decaying speed model allows you to represent lane change maneuvers by other vehicles on the highway. </p><p></p>
+<div class="code_responsive"><p class="programlistingindent"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="block"><mrow><mrow><mo>[</mo><mrow><mtable columnalign="center"><mtr><mtd><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><munderover accent="true"><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover></mrow></mtd></mtr><mtr><mtd><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><munderover accent="true"><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover></mrow></mtd></mtr></mtable></mrow><mo>]</mo></mrow><mo>=</mo><mrow><mo>[</mo><mrow><mtable columnalign="center center center center"><mtr><mtd><mrow><mn>1</mn></mrow></mtd><mtd><mrow><mi>Δ</mi><mi>T</mi></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd></mtr><mtr><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mn>1</mn></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd></mtr><mtr><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mn>1</mn></mrow></mtd><mtd><mrow><mi>τ</mi><mrow><mo>(</mo><mrow><mn>1</mn><mo>-</mo><msup><mrow><mi>e</mi></mrow><mrow><mrow><mo>(</mo><mrow><mo>-</mo><mfrac><mrow><mi>Δ</mi><mi>T</mi></mrow><mrow><mspace width="0.2777777777777778em"></mspace><mi>τ</mi></mrow></mfrac></mrow><mo>)</mo></mrow><mspace width="0.2777777777777778em"></mspace></mrow></msup></mrow><mo>)</mo></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mn>0</mn><mspace width="0.2777777777777778em"></mspace></mrow></mtd><mtd><mrow><mn>0</mn><mspace width="0.2777777777777778em"></mspace></mrow></mtd><mtd><mrow><mn>0</mn><mspace width="0.2777777777777778em"></mspace></mrow></mtd><mtd><mrow><msup><mrow><mi>e</mi></mrow><mrow><mrow><mo>(</mo><mrow><mo>-</mo><mfrac><mrow><mi>Δ</mi><mi>T</mi></mrow><mrow><mspace width="0.2777777777777778em"></mspace><mi>τ</mi></mrow></mfrac></mrow><mo>)</mo></mrow><mspace width="0.2777777777777778em"></mspace></mrow></msup></mrow></mtd></mtr></mtable></mrow><mo>]</mo></mrow><mrow><mo>[</mo><mrow><mtable columnalign="center"><mtr><mtd><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><munderover accent="true"><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover></mrow></mtd></mtr><mtr><mtd><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><munderover accent="true"><mrow><msub><mrow><mi>d</mi></mrow><mrow><mi>k</mi></mrow></msub></mrow><mrow></mrow><mrow><mo stretchy="false">˙</mo></mrow></munderover></mrow></mtd></mtr></mtable></mrow><mo>]</mo></mrow><mo>+</mo><mrow><mo>[</mo><mrow><mtable columnalign="center center"><mtr><mtd><mrow><mfrac><mrow><mi>Δ</mi><msup><mrow><mi>T</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd></mtr><mtr><mtd><mrow><mi>Δ</mi><mi>T</mi></mrow></mtd><mtd><mrow><mn>0</mn></mrow></mtd></mtr><mtr><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mfrac><mrow><mi>Δ</mi><msup><mrow><mi>T</mi></mrow><mrow><mn>2</mn></mrow></msup></mrow><mrow><mn>2</mn></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow><mn>0</mn></mrow></mtd><mtd><mrow><mi>Δ</mi><mi>T</mi></mrow></mtd></mtr></mtable></mrow><mo>]</mo></mrow><mrow><mo>[</mo><mrow><mtable columnalign="center"><mtr><mtd><mrow><msub><mrow><mi>w</mi></mrow><mrow><mi>s</mi></mrow></msub></mrow></mtd></mtr><mtr><mtd><mrow><msub><mrow><mi>w</mi></mrow><mrow><mi>d</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub></mrow></mtd></mtr></mtable></mrow><mo>]</mo></mrow></mrow></math></p></div><p></p><p>where <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><mi>Δ</mi><mi>T</mi></mrow></math></span> is the time difference between steps <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><mi>k</mi></mrow></math></span> and <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></math></span>, <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><msub><mrow><mi>w</mi></mrow><mrow><mi>s</mi></mrow></msub></mrow></math></span> and <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><msub><mrow><mi>w</mi></mrow><mrow><mi>d</mi><mspace width="0.2777777777777778em"></mspace></mrow></msub></mrow></math></span> are zero-mean Gaussian noise representing unknown acceleration in Frenet coordinates, and <span class="inlineequation"><math xmlns="http://www.w3.org/1998/Math/MathML" xmlns:mwmmlx="https://www.mathworks.com/namespace/MathMLextensions" mwmmlx:extension="true" display="inline"><mrow><mi>τ</mi></mrow></math></span> is a decaying constant. </p><p>This choice of coordinate in modeling the object motion allows you to integrate the highway reference path into the multi-object tracking framework. The integration of reference path acts as additional information for the tracker and allows the tracker to improve current state estimates as well as predicted trajectories of the estimated objects. You can obtain measurement model by first transforming the object state into Cartesian position and velocity and then converting them to respective measured quantities such as azimuth and range. </p><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-3">Setup</h3><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-4">Scenario and Sensors</h4><p>The scenario used in this example is created using the <a class="a" data-docid="driving_ref#mw_07e6310f-b9c9-4f4c-b2f9-51e31d407766" href="../../driving/ref/drivingscenariodesigner-app.html">Driving Scenario Designer</a><span role="cross_prod"> (Automated Driving Toolbox)</span> and then exported to a MATLAB® function. The ego vehicle is mounted with 1 forward-looking radar and 5 cameras providing 360-degree coverage. The radar and cameras are simulated using the <a class="a" data-docid="driving_ref#mw_563c80e4-827b-4d7c-ad3b-5cb922f03d73" href="../../driving/ref/drivingradardatagenerator-system-object.html"><code class="olink">drivingRadarDataGenerator</code></a><span role="cross_prod"> (Automated Driving Toolbox)</span> and <a class="a" data-docid="driving_ref#bvn7au5-1" href="../../driving/ref/visiondetectiongenerator-system-object.html"><code class="olink">visionDetectionGenerator</code></a><span role="cross_prod"> (Automated Driving Toolbox)</span> System objects, respectively. </p><div class="informalfigure"><div id="d127e29838" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_01.png" alt="sensorConfig.png" height="376" width="260"/></p></div></div><p>The entire scenario and sensor setup is defined in the helper function, <code class="literal">helperTrackingAndPlanningScenario</code>, attached with this example. You define the global plan describing the highway centerline using a <a class="a" data-docid="nav_ref#mw_635246b1-0e68-43b2-9cca-062a734a858a" href="../../nav/ref/referencepathfrenet.html"><code class="olink">referencePathFrenet</code></a><span role="cross_prod"> (Navigation Toolbox)</span> object. As multiple algorithms in this example need access to the reference path, you define the <code class="literal">helperGetReferencePath</code> function, which uses a <a class="a" data-docid="matlab_ref#f76-920859" href="../../matlab/ref/persistent.html"><code class="olink">persistent</code></a> object that can be accessed by any function.  </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>rng(2022); <span style="color:var(--mw-color-matlabComment)">% For reproducible results</span>
+
+<span style="color:var(--mw-color-matlabComment)">% Setup scenario and sensors</span>
+[scenario, egoVehicle, sensors] = helperTrackingAndPlanningScenario();</pre></div></div></div><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-5">Joint Probabilistic Data Association Tracker</h4><p>You set up a joint probabilistic data association tracker using the <a class="a" data-docid="fusion_ref#sysobj_tracker_jpda" href="../ref/trackerjpda-system-object.html"><code class="olink">trackerJPDA</code></a> System object™. You set the <code class="literal">FilterInitializationFcn</code> property of the tracker to <code class="literal">helperInitRefPathFilter</code> function. This helper function defines an extended Kalman filter, <a class="a" data-docid="fusion_ref#sysobj_tracker_jpda" href="../ref/trackerjpda-system-object.html"><code class="olink">trackerJPDA</code></a>, used to estimate the state of a single object. Local functions inside the <code class="literal">helperInitRefPathFilter</code> file define the state transition as well as measurement model for the filter. Further, to predict the tracks at a future time for the motion planner, you use the <a class="a" data-docid="fusion_ref#mw_83ac7c60-f1a3-4fc2-b7fe-7fad6f592141" href="../ref/trackergnn.predicttrackstotime.html"><code class="olink">predictTracksToTime</code></a> function of the tracker. </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>tracker = trackerJPDA(<span style="color:var(--mw-color-matlabString)">&#39;FilterInitializationFcn&#39;</span>,@helperInitRefPathFilter,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;AssignmentThreshold&#39;</span>,[200 inf],<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;ConfirmationThreshold&#39;</span>,[8 10],<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;DeletionThreshold&#39;</span>,[5 5]);</pre></div></div></div><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-6">Motion Planner</h4><p>You use a similar highway trajectory motion planner as outlined in the <a class="a" data-docid="nav_ug#mw_24609bbb-53bc-4aa3-9ca2-f8b0d301cb27" href="../../nav/ug/highway-trajectory-planning-using-frenet.html">Highway Trajectory Planning Using Frenet Reference Path</a><span role="cross_prod"> (Navigation Toolbox)</span> example. The motion planner uses a planning horizon of 5 seconds and considers three modes for sampling trajectories for the ego vehicle — cruise control, lead vehicle follow, and basic lane change. The entire process for generating an optimal trajectory is wrapped in the helper function, <code class="literal">helperPlanHighwayTrajectory</code>.</p><p>The helper function accepts an <a class="a" data-docid="nav_ref#mw_7adae6fc-28a4-49cf-9120-4a0b7c6bce23" href="../../nav/ref/dynamiccapsulelist.html"><code class="olink">dynamicCapsuleList</code></a><span role="cross_prod"> (Navigation Toolbox)</span> object as an input to find non-colliding trajectories. The collision checking is performed in the entire planning horizon at an interval of 0.5 seconds. As the track states vary with time, you update the <code class="literal">dynamicCapsuleList</code> object in the simulation loop using the <code class="literal">helperUpdateCapsuleList</code> function, attached with this example.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre><span style="color:var(--mw-color-matlabComment)">% Collision check time stamps</span>
+tHorizon = 5; <span style="color:var(--mw-color-matlabComment)">% seconds</span>
+deltaT = 0.5; <span style="color:var(--mw-color-matlabComment)">% seconds</span>
+tSteps = deltaT:deltaT:tHorizon;
+
+<span style="color:var(--mw-color-matlabComment)">% Create the dynamicCapsuleList object</span>
+capList = dynamicCapsuleList;
+capList.MaxNumSteps = numel(tSteps) + 1;
+
+<span style="color:var(--mw-color-matlabComment)">% Specify the ego vehicle geometry</span>
+carLen = 4.7;
+carWidth = 1.8;
+rearAxleRatio = 0.25;
+egoID = 1;
+[egoID, egoGeom] = egoGeometry(capList,egoID);
+
+<span style="color:var(--mw-color-matlabComment)">% Inflate to allow uncertainty and safety gaps</span>
+egoGeom.Geometry.Length = 2*carLen; <span style="color:var(--mw-color-matlabComment)">% in meters</span>
+egoGeom.Geometry.Radius = carWidth/2; <span style="color:var(--mw-color-matlabComment)">% in meters</span>
+egoGeom.Geometry.FixedTransform(1,end) = -2*carLen*rearAxleRatio; <span style="color:var(--mw-color-matlabComment)">% in meters</span>
+updateEgoGeometry(capList,egoID,egoGeom);</pre></div></div></div><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-7">Run Simulation</h3><p>In this section, you advance the simulation, generate sensor data and perform dynamic replanning using estimations about the surroundings. The entire process is divided into 5 main steps:</p><div class="orderedlist"><ol style="list-style: decimal;"><li><p>You collect simulated sensor data from radar and camera sensors.</p></li><li><p>You feed the sensor data to the JPDA tracker to estimate current state of objects.</p></li><li><p>You predict the state of objects using the <code class="literal">predictTracksToTime</code> function.</p></li><li><p>You update the object list for the planner and plan a highway trajectory.</p></li><li><p>You move the simulated ego vehicle on the planned trajectory. </p></li></ol></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre><span style="color:var(--mw-color-matlabComment)">% Create display for visualizing results</span>
+display = HelperTrackingAndPlanningDisplay;
+
+<span style="color:var(--mw-color-matlabComment)">% Initial state of the ego vehicle</span>
+refPath = helperGetReferencePath;
+egoState = frenet2global(refPath,[0 0 0 0.5*3.6 0 0]);
+helperMoveEgoToState(egoVehicle, egoState);
+
+<span style="color:var(--mw-color-matlabKeyword)">while</span> advance(scenario)
+    <span style="color:var(--mw-color-matlabComment)">% Current time</span>
+    time = scenario.SimulationTime;
+
+    <span style="color:var(--mw-color-matlabComment)">% Step 1. Collect data</span>
+    detections = helperGenerateDetections(sensors, egoVehicle, time);
+    
+    <span style="color:var(--mw-color-matlabComment)">% Step 2. Feed detections to tracker</span>
+    tracks = tracker(detections, time);
+
+    <span style="color:var(--mw-color-matlabComment)">% Step 3. Predict tracks in planning horizon</span>
+    timesteps = time + tSteps;
+    predictedTracks = repmat(tracks,[1 numel(timesteps)+1]);
+    <span style="color:var(--mw-color-matlabKeyword)">for</span> i = 1:numel(timesteps)
+        predictedTracks(:,i+1) = predictTracksToTime(tracker,<span style="color:var(--mw-color-matlabString)">&#39;confirmed&#39;</span>,timesteps(i));
+    <span style="color:var(--mw-color-matlabKeyword)">end</span>
+    
+    <span style="color:var(--mw-color-matlabComment)">% Step 4. Update capsule list and plan highway trajectory</span>
+    currActorState = helperUpdateCapsuleList(capList, predictedTracks);
+    [optimalTrajectory, trajectoryList] = helperPlanHighwayTrajectory(capList, currActorState, egoState);
+
+    <span style="color:var(--mw-color-matlabComment)">% Visualize the results</span>
+    display(scenario, egoVehicle, sensors, detections, tracks, capList, trajectoryList);
+
+    <span style="color:var(--mw-color-matlabComment)">% Step 5. Move ego on planned trajectory</span>
+    egoState = optimalTrajectory(2,:);
+    helperMoveEgoToState(egoVehicle,egoState);
+<span style="color:var(--mw-color-matlabKeyword)">end</span></pre></div></div></div><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-8">Results</h3><p>In the animation below, you can observe the planned ego vehicle trajectories highlighted in green color. The animation also shows all other sampled trajectories for the ego vehicle. For these other trajectories, the colliding trajectories are shown in red, unevaluated trajectories are shown in gray, and kinematically-infeasible trajectories are shown in cyan color. Each track is annotated by an ID representing its unique identity. Notice that the ego vehicle successfully maneuvers around obstacles in the scene. </p><div class="informalfigure"><div id="d127e29914" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_02.gif" alt="TrackingAndPlanning.gif" height="597" width="1024"/></p></div></div><p>In the following sub-sections, you analyze the estimates from the tracker at certain time steps and understand how it impacts the choices made by the motion planner. </p><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-9">Road-Integrated Motion Prediction</h4><p>In this section, you learn how the road-integrated motion model allows the tracker to obtain more accurate long-term predictions about the objects on the highway. Shown below is a snapshot from the simulation taken at time = 30 seconds. Notice the trajectory predicted for the green vehicle to the right of the blue ego vehicle. The predicted trajectory follows the lane of the vehicle because the road network information is integrated with the tracker. If instead, you use a constant-velocity model assumption for objects, the predicted trajectory will follow the direction of instantaneous velocity and will be falsely treated as a collision by the motion planner. In this case, the motion planner can possibly generate an unsafe maneuver.</p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>showSnaps(display,2,4); <span style="color:var(--mw-color-matlabComment)">% Shows snapshot while publishing</span></pre></div></div></div><div class="informalfigure"><div id="d127e29925" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_03.png" alt="Figure contains an axes object and an object of type uipanel. The hidden axes object with xlabel X (m), ylabel Y (m) contains 28 objects of type patch, line, text. One or more of the lines displays its values using only markers These objects represent Tracks, (history), Radar Detections, Vision Detections, (cov)." width="614"/></p></div></div><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-10">Lane Change Prediction</h4><p>In the first section, you learned how the lane change maneuvers are captured by using a decaying lateral velocity model of the objects. Now, notice the snapshot taken at time = 17.5 seconds. At this time, the yellow vehicle on the right side of the ego vehicle initiates a lane change and intends to enter the lane of the ego vehicle. Notice that its predicted trajectory captures this maneuver, and the tracker predicts it to be in the same lane as the ego vehicle at the end of planning horizon. This prediction informs the motion planner about a possible collision with this vehicle, thus the planner first proceeds to test feasibility for the ego vehicle to change lane to the left. However, the presence of purple vehicle on the left and its predicted trajectory causes the ego vehicle to make a right lane change. You can also observe these colliding trajectories colored as red in the snapshot below. </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>showSnaps(display,2,1); <span style="color:var(--mw-color-matlabComment)">% Shows snapshot while publishing</span></pre></div></div></div><div class="informalfigure"><div id="d127e29935" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_04.png" alt="Figure contains an axes object and an object of type uipanel. The hidden axes object with xlabel X (m), ylabel Y (m) contains 30 objects of type patch, line, text. One or more of the lines displays its values using only markers These objects represent Tracks, (history), Radar Detections, Vision Detections, (cov)." width="614"/></p></div></div><h4 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-11"><strong class="emphasis bold">Tracker Imperfections</strong></h4><p>A multi-object tracker may have certain imperfections that can affect motion planning decisions. Specifically, a multi-object tracker can miss objects, report false tracks, or sometimes report redundant tracks. In the snapshot below taken at time = 20 seconds, the tracker drops tracks on two vehicles in front of the ego vehicle due to occlusion. In this particular situation, these missed targets are less likely to influence the decision of the motion planner due to their distance from the ego vehicle. </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>showSnaps(display,2,2); <span style="color:var(--mw-color-matlabComment)">% Shows snapshot while publishing</span></pre></div></div></div><div class="informalfigure"><div id="d127e29947" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_05.png" alt="Figure contains an axes object and an object of type uipanel. The hidden axes object with xlabel X (m), ylabel Y (m) contains 26 objects of type patch, line, text. One or more of the lines displays its values using only markers These objects represent Tracks, (history), Radar Detections, Vision Detections, (cov)." width="614"/></p></div></div><p>However, as the ego vehicle approaches these vehicles, their influence on the ego vehicle&#39;s decision increases. Notice that the tracker is able to establish a track on these vehicles by time = 20.4 seconds, as shown in the snapshot below, thus making the system slightly robust to these imperfections. While configuring a tracking algorithm for motion planning, it is important to consider these imperfections from the tracker and tune the track confirmation and track deletion logics. </p><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre>showSnaps(display,2,3); <span style="color:var(--mw-color-matlabComment)">% Show snapshot while publishing</span></pre></div></div></div><div class="informalfigure"><div id="d127e29955" class="mediaobject"><p><img src="../../examples/driving_fusion_nav/win64/ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample_06.png" alt="Figure contains an axes object and an object of type uipanel. The hidden axes object with xlabel X (m), ylabel Y (m) contains 30 objects of type patch, line, text. One or more of the lines displays its values using only markers These objects represent Tracks, (history), Radar Detections, Vision Detections, (cov)." width="614"/></p></div></div><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-12">Summary</h3><p>You learned how to use a joint probabilistic data association tracker to track vehicles using a Frenet reference path with radar and camera sensors. You configured the tracker to use highway map data to provide long term predictions about objects. You also used these long-term predictions to drive a motion planner for planning trajectories on the highway. </p><h3 class="title" id="ObjectTrackingAndMotionPlanningUsingFrenetReferencePathExample-13">Supporting Functions</h3><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre><span style="color:var(--mw-color-matlabKeyword)">function</span> detections = helperGenerateDetections(sensors, egoVehicle, time)
+    detections = cell(0,1);
+    <span style="color:var(--mw-color-matlabKeyword)">for</span> i = 1:numel(sensors)
+        thisDetections = sensors{i}(targetPoses(egoVehicle),time);
+        detections = [detections;thisDetections]; <span style="color:var(--mw-color-matlabComment)">%#ok&lt;AGROW&gt; </span>
+    <span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+    detections = helperAddEgoVehicleLocalization(detections,egoVehicle);
+    detections = helperPreprocessDetections(detections);
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+<span style="color:var(--mw-color-matlabKeyword)">function</span> detectionsOut = helperAddEgoVehicleLocalization(detectionsIn, egoPose)
+
+defaultParams = struct(<span style="color:var(--mw-color-matlabString)">&#39;Frame&#39;</span>,<span style="color:var(--mw-color-matlabString)">&#39;Rectangular&#39;</span>,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;OriginPosition&#39;</span>,zeros(3,1),<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;OriginVelocity&#39;</span>,zeros(3,1),<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;Orientation&#39;</span>,eye(3),<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;HasAzimuth&#39;</span>,false,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;HasElevation&#39;</span>,false,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;HasRange&#39;</span>,false,<span style="color:var(--mw-color-matlabKeyword)">...</span>
+    <span style="color:var(--mw-color-matlabString)">&#39;HasVelocity&#39;</span>,false);
+
+fNames = fieldnames(defaultParams);
+
+detectionsOut = cell(numel(detectionsIn),1);
+
+<span style="color:var(--mw-color-matlabKeyword)">for</span> i = 1:numel(detectionsIn)
+    thisDet = detectionsIn{i};
+    <span style="color:var(--mw-color-matlabKeyword)">if</span> iscell(thisDet.MeasurementParameters)
+        measParams = thisDet.MeasurementParameters{1};
+    <span style="color:var(--mw-color-matlabKeyword)">else</span>
+        measParams = thisDet.MeasurementParameters(1);
+    <span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+    newParams = struct;
+    <span style="color:var(--mw-color-matlabKeyword)">for</span> k = 1:numel(fNames)
+        <span style="color:var(--mw-color-matlabKeyword)">if</span> isfield(measParams,fNames{k})
+            newParams.(fNames{k}) = measParams.(fNames{k});
+        <span style="color:var(--mw-color-matlabKeyword)">else</span>
+            newParams.(fNames{k}) = defaultParams.(fNames{k});
+        <span style="color:var(--mw-color-matlabKeyword)">end</span>
+    <span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+    <span style="color:var(--mw-color-matlabComment)">% Add parameters for ego vehicle</span>
+    thisDet.MeasurementParameters = [newParams;newParams];
+    thisDet.MeasurementParameters(2).Frame = <span style="color:var(--mw-color-matlabString)">&#39;Rectangular&#39;</span>;
+    thisDet.MeasurementParameters(2).OriginPosition = egoPose.Position(:);
+    thisDet.MeasurementParameters(2).OriginVelocity = egoPose.Velocity(:);
+    thisDet.MeasurementParameters(2).Orientation = rotmat(quaternion([egoPose.Yaw egoPose.Pitch egoPose.Roll],<span style="color:var(--mw-color-matlabString)">&#39;eulerd&#39;</span>,<span style="color:var(--mw-color-matlabString)">&#39;ZYX&#39;</span>,<span style="color:var(--mw-color-matlabString)">&#39;frame&#39;</span>),<span style="color:var(--mw-color-matlabString)">&#39;frame&#39;</span>)&#39;;
+    
+    
+    <span style="color:var(--mw-color-matlabComment)">% No information from object class and attributes</span>
+    thisDet.ObjectClassID = 0;
+    thisDet.ObjectAttributes = struct;
+    detectionsOut{i} = thisDet;
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+
+<span style="color:var(--mw-color-matlabKeyword)">function</span> detections = helperPreprocessDetections(detections)
+    <span style="color:var(--mw-color-matlabComment)">% This function pre-process the detections from radars and cameras to</span>
+    <span style="color:var(--mw-color-matlabComment)">% fit the modeling assumptions used by the tracker</span>
+
+    <span style="color:var(--mw-color-matlabComment)">% 1. It removes velocity information from camera detections. This is</span>
+    <span style="color:var(--mw-color-matlabComment)">% because those are filtered estimates and the assumptions from camera</span>
+    <span style="color:var(--mw-color-matlabComment)">% may not align with defined prior information for tracker.</span>
+    <span style="color:var(--mw-color-matlabComment)">%</span>
+    <span style="color:var(--mw-color-matlabComment)">% 2. It fixes the bias for camera sensors that arise due to camera</span>
+    <span style="color:var(--mw-color-matlabComment)">% projections for cars just left or right to the ego vehicle.</span>
+    <span style="color:var(--mw-color-matlabComment)">% </span>
+    <span style="color:var(--mw-color-matlabComment)">% 3. It inflates the measurement noise for range-rate reported by the</span>
+    <span style="color:var(--mw-color-matlabComment)">% radars to match the range-rate resolution of the sensor</span>
+    <span style="color:var(--mw-color-matlabKeyword)">for</span> i = 1:numel(detections)
+        <span style="color:var(--mw-color-matlabKeyword)">if</span> detections{i}.SensorIndex &gt; 1 <span style="color:var(--mw-color-matlabComment)">% Camera</span>
+            <span style="color:var(--mw-color-matlabComment)">% Remove velocity</span>
+            detections{i}.Measurement = detections{i}.Measurement(1:3);
+            detections{i}.MeasurementNoise = blkdiag(detections{i}.MeasurementNoise(1:2,1:2),25);
+            detections{i}.MeasurementParameters(1).HasVelocity = false;
+
+            <span style="color:var(--mw-color-matlabComment)">% Fix bias</span>
+            pos = detections{i}.Measurement(1:2);
+            <span style="color:var(--mw-color-matlabKeyword)">if</span> abs(pos(1)) &lt; 5 &amp;&amp; abs(pos(2)) &lt; 5
+                [az, ~, r] = cart2sph(pos(1),pos(2),0);
+                [pos(1),pos(2)] = sph2cart(az, 0, r + 0.7); <span style="color:var(--mw-color-matlabComment)">% Increase range</span>
+                detections{i}.Measurement(1:2) = pos;
+                detections{i}.MeasurementNoise(2,2) = 0.25;
+            <span style="color:var(--mw-color-matlabKeyword)">end</span>
+        <span style="color:var(--mw-color-matlabKeyword)">else</span> <span style="color:var(--mw-color-matlabComment)">% Radars</span>
+            detections{i}.MeasurementNoise(3,3) = 0.5^2/4;
+        <span style="color:var(--mw-color-matlabKeyword)">end</span>
+    <span style="color:var(--mw-color-matlabKeyword)">end</span>
+<span style="color:var(--mw-color-matlabKeyword)">end</span>
+</pre></div></div></div><div class="code_responsive" translate="no"><div class="programlisting"><div class="codeinput"><pre><span style="color:var(--mw-color-matlabKeyword)">function</span> helperMoveEgoToState(egoVehicle, egoState)
+egoVehicle.Position(1:2) = egoState(1:2);
+egoVehicle.Velocity(1:2) = [cos(egoState(3)) sin(egoState(3))]*egoState(5);
+egoVehicle.Yaw = egoState(3)*180/pi;
+egoVehicle.AngularVelocity(3) = 180/pi*egoState(4)*egoState(5);
+<span style="color:var(--mw-color-matlabKeyword)">end</span></pre></div></div></div></div></section>
+    </div></section><div class="clearfix"></div>
+<div align="center" class="feedbackblock" id="mw_docsurvey"><script src="/help/includes/shared/docsurvey/docfeedback.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script nonce="r0syoTa9IdY3gQP6WtOpHkVI">loadSurveyHidden();</script>
+<link rel="stylesheet" href="/help/includes/shared/docsurvey/release/index-css.css" type="text/css"/>
+<script src="/help/includes/shared/docsurvey/release/bundle.index.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script nonce="r0syoTa9IdY3gQP6WtOpHkVI">initDocSurvey();</script></div>
+
+
+
+
+<div class="modal fade" id="matlab-command-dialog" tabindex="-1" role="dialog" aria-labelledby="matlabCommandDialogLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">MATLAB Command</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="dialog-body">
+        <p>You clicked a link that corresponds to this MATLAB command: </p>
+        <pre id="dialog-matlab-command"></pre>
+        <p>Run the command by entering it in the MATLAB Command Window.
+        Web browsers do not support MATLAB commands.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_color_blue" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+	<div><div class="targetContent parsys containsResourceName resourceClass-parsys"><div class="cqColumns containsResourceName section resourceClass-columns"><div class="row  ">
+
+	
+		<div class=" col-12 "><div class="2420e633-83fe-4c2d-9b62-4248985f27d2 parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+	
+</div>
+</div>
+
+</div>
+</div>
+</div></div>
+
+</div>
+</section>
+	
+	
+	
+		
+
+<div><div class="modalParsys parsys containsResourceName resourceClass-parsys">
+</div>
+</div>
+
+		
+
+
+	<div id="location_content" style="display:none;"></div>
+
+	<div class="modal fade" id="country-unselected" tabindex="-1" aria-labelledby="domain_selector_label" style="padding-left: 0px; display:none;" aria-modal="true" role="dialog">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<img src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo.20260806155224309.svg" class="mw_logo theme_light" alt="MathWorks" width="173" height="35"/>
+					<img src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/resources/images/mathworks-logo-rev.20260806155224309.svg" class="mw_logo theme_dark" alt="MathWorks" width="173" height="35" style="display:none;"/>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+
+					<p class="h1 icon-globe" id="domain_selector_label">Select a Web Site</p>
+					<p>Choose a web site to get translated content where available and see local events and offers. Based on your location, we recommend that you select: <strong class="recommended-country"></strong>.</p>
+					<div class="default-recommendation">
+						<p><a class="btn btn_color_blue" data-lang="en" href="#" id="recommended_domain_button"><span class="recommended-country"></span></a></p>
+					</div>
+
+					<div class="ch-recommendation" style="display:none;">
+						<ul class="list-inline">
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Switzerland" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (English)</a></li>
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Schweiz" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (Deutsch)</a></li>
+							<li class="list-inline-item add_margin_5 d-block d-md-inline-block"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="Suisse" data-subdomain="ch" href="//ch.mathworks.com"><strong class="recommended-country"></strong> (Français)</a></li>
+						</ul>
+					</div>
+					<div class="zh-recommendation" style="display:none;">
+						<ul class="list-inline">
+							<li class="list-inline-item"><a class="recommendation-button btn btn-outline btn_color_blue" data-default-lang="true" data-do-not-rewrite="true" data-lang="zh" data-recommended-text="中国" data-subdomain="ww2" href="//ww2.mathworks.cn"><strong class="recommended-country"></strong>（简体中文）</a></li>
+							<li class="list-inline-item"><a class="recommendation-button btn btn-outline btn_color_blue" data-do-not-rewrite="true" data-lang="en" data-recommended-text="China" data-subdomain="ww2" href="//ww2.mathworks.cn"><strong class="recommended-country"></strong> (English)</a></li>
+						</ul>
+					</div>
+
+					<p>You can also select a web site from the following list</p>
+					<div class="alert alert-warning" role="alert" id="china_performance_alert" style="display:none;"> <span class="alert_icon icon-alert-warning"></span>
+						<p class="alert_heading"><strong>How to Get Best Site Performance</strong></p>
+						<p>Select the China site (in Chinese or English) for best site performance. Other MathWorks country sites are not optimized for visits from your location.</p>
+					</div>
+					<div class="row add_margin_30">
+						<div class="col-12 col-sm-4 col-lg-3">
+							<p class="h3 add_bottom_rule">Americas</p>
+							<ul class="list-unstyled">
+								<li><a class="domain_selector_link" data-country-code="LA" data-default-lang="true" data-do-not-rewrite="true" data-lang="es" data-recommended-text="América Latina" data-selected-text="América Latina" data-subdomain="la" href="//la.mathworks.com">América Latina</a> (Español)</li>
+								<li><a class="domain_selector_link" data-country-code="CA" data-do-not-rewrite="true" data-lang="en" data-subdomain="www" href="//www.mathworks.com">Canada</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="US" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="United States" data-selected-text="United States" data-subdomain="www" href="//www.mathworks.com">United States</a> (English)</li>
+							</ul>
+						</div>
+						<div class="col-12 col-sm-4 col-lg-6">
+							<p class="h3 add_bottom_rule">Europe</p>
+							<div class="row">
+								<div class="col-6 col-sm-12 col-lg-6">
+									<ul class="list-unstyled">
+										<li><a class="domain_selector_link" data-country-code="BE" data-do-not-rewrite="true" data-lang="en" data-subdomain="nl" href="//nl.mathworks.com">Belgium</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="DK" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Denmark</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="DE" data-default-lang="true" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Deutschland" data-selected-text="Deutschland" data-subdomain="de" href="//de.mathworks.com">Deutschland</a> (Deutsch)</li>
+										<li><a class="domain_selector_link" data-country-code="ES" data-default-lang="true" data-do-not-rewrite="true" data-lang="es" data-recommended-text="España" data-selected-text="España" data-subdomain="es" href="//es.mathworks.com">España</a> (Español)</li>
+										<li><a class="domain_selector_link" data-country-code="FI" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Finland</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="FR" data-default-lang="true" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="France" data-selected-text="France" data-subdomain="fr" href="//fr.mathworks.com">France</a> (Français)</li>
+										<li><a class="domain_selector_link" data-country-code="IE" data-do-not-rewrite="true" data-lang="en" data-subdomain="uk" href="//uk.mathworks.com">Ireland</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="IT" data-default-lang="true" data-do-not-rewrite="true" data-lang="it" data-recommended-text="Italia" data-selected-text="Italia" data-subdomain="it" href="//it.mathworks.com">Italia</a> (Italiano)</li>
+										<li><a class="domain_selector_link" data-country-code="LU" data-do-not-rewrite="true" data-lang="en" data-subdomain="nl" href="//nl.mathworks.com">Luxembourg</a> (English)</li>
+									</ul>
+								</div>
+								<div class="col-6 col-sm-12 col-lg-6">
+									<ul class="list-unstyled">
+										<li><a class="domain_selector_link" data-country-code="NL" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Netherlands" data-selected-text="Benelux" data-subdomain="nl" href="//nl.mathworks.com">Netherlands</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="NO" data-do-not-rewrite="true" data-lang="en" data-subdomain="se" href="//se.mathworks.com">Norway</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="AT" data-do-not-rewrite="true" data-lang="de" data-subdomain="de" href="//de.mathworks.com">Österreich</a> (Deutsch)</li>
+										<li><a class="domain_selector_link" data-country-code="PT" data-do-not-rewrite="true" data-lang="en" data-subdomain="www" href="//www.mathworks.com">Portugal</a> (English)</li>
+										<li><a class="domain_selector_link" data-country-code="SE" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Sweden" data-selected-text="Nordic" data-subdomain="se" href="//se.mathworks.com">Sweden</a> (English)</li>
+										<li>Switzerland
+											<ul class="list-unstyled add_indent_20">
+												<li><a class="domain_selector_link" data-country-code="CH" data-do-not-rewrite="true" data-lang="de" data-recommended-text="Schweiz" data-selected-text="Schweiz" data-subdomain="ch" href="//ch.mathworks.com">Deutsch</a></li>
+												<li><a class="domain_selector_link" data-country-code="CH" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Switzerland" data-selected-text="Switzerland" data-subdomain="ch" href="//ch.mathworks.com" id="swiss_english">English</a></li>
+												<li><a class="domain_selector_link" data-country-code="CH" data-do-not-rewrite="true" data-lang="fr" data-recommended-text="Suisse" data-selected-text="Suisse" data-subdomain="ch" href="//ch.mathworks.com">Français</a></li>
+											</ul>
+										</li>
+										<li><a class="domain_selector_link" data-country-code="GB" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="United Kingdom" data-selected-text="United Kingdom" data-subdomain="uk" href="//uk.mathworks.com">United Kingdom</a> (English)</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-4 col-lg-3">
+							<p class="h3 add_bottom_rule">Asia Pacific</p>
+							<ul class="list-unstyled">
+								<li><a class="domain_selector_link" data-country-code="AU" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="Australia" data-selected-text="Australia" data-subdomain="au" href="//au.mathworks.com">Australia</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="IN" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="India" data-selected-text="India" data-subdomain="in" href="//in.mathworks.com">India</a> (English)</li>
+								<li><a class="domain_selector_link" data-country-code="NZ" data-do-not-rewrite="true" data-lang="en" data-subdomain="au" href="//au.mathworks.com">New Zealand</a> (English)</li>
+								<li>中国
+									<ul class="list-unstyled add_indent_20">
+										<li><a class="domain_selector_link" data-country-code="CN" data-default-lang="true" data-do-not-rewrite="true" data-lang="zh" data-recommended-text="中国" data-selected-text="中国" data-subdomain="ww2" href="//ww2.mathworks.cn">简体中文</a></li>
+										<li><a class="domain_selector_link" data-country-code="CN" data-default-lang="true" data-do-not-rewrite="true" data-lang="en" data-recommended-text="China" data-selected-text="China" data-subdomain="ww2" href="//ww2.mathworks.cn">English</a></li>
+									</ul>
+								</li>
+								<li><a class="domain_selector_link" data-country-code="JP" data-default-lang="true" data-do-not-rewrite="true" data-lang="ja" data-recommended-text="日本" data-selected-text="日本" data-subdomain="jp" href="//jp.mathworks.com">日本</a> (日本語)</li>
+								<li><a class="domain_selector_link" data-country-code="KR" data-default-lang="true" data-do-not-rewrite="true" data-lang="ko" data-recommended-text="한국" data-selected-text="한국" data-subdomain="kr" href="//kr.mathworks.com">한국</a> (한국어)</li>
+							</ul>
+						</div>
+					</div>
+					<p class="text-center"><a class="worldwide_link" data-do-not-rewrite="true" href="#">Contact your local office</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+    
+
+
+
+
+
+
+
+
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/domainselector.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+	
+</main>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+
+<footer id="footer">
+	
+		<div class="primary_footer" id="primary_footer">
+			<div class="container-fluid container-lg">
+				<div class="row align-items-start">
+					<div class="col-12 col-md-9">
+						<nav>
+							
+							<div class="footerNavigation footernavigation containsResourceName resourceClass-footernavigation">
+
+
+
+	<ul class="list-inline " id="footernav" data-privacy="Your Privacy Choices">
+		<li class="list-inline-item" id="footernav_footernav_patents">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center.html?s_tid=gf_tc">
+
+		
+
+		
+			
+			Trust Center</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_trademarks">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/trademarks.html?s_tid=gf_trd">
+
+		
+
+		
+			
+			Trademarks</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_privacy">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/privacy-policy.html?s_tid=gf_priv">
+
+		
+
+		
+			
+			Privacy Policy</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_piracy">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/trust-center/piracy.html?s_tid=gf_pir">
+
+		
+
+		
+			
+			Preventing Piracy</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_status">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="https://status.mathworks.com/?s_tid=gf_application">
+
+		
+
+		
+			
+			Application Status</a>
+
+		
+		
+	
+
+		</li>
+	
+		<li class="list-inline-item" id="footernav_footernav_contactus">
+			
+	
+	
+	
+
+	
+
+	<a class=" " href="/company/aboutus/contact_us.html?s_tid=gf_contact">
+
+		
+
+		
+			
+			Contact Us</a>
+
+		
+		
+	
+
+		</li>
+	</ul>
+
+
+
+
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/footernavigation.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+</div>
+
+						</nav>
+						<p class="copyright">© 1994-2026 The MathWorks, Inc.</p>
+					</div>
+					<div class="col-12 col-md-3">
+						<div id="countrynav" class="d-flex justify-content-end">
+							<button class="btn btn-outline btn_countrynav companion_btn add_margin_20" id="domainButton" data-toggle="modal" data-bs-toggle="modal" data-target="#country-unselected" data-bs-target="#country-unselected">
+								<span class="visually-hidden sr-only">Select a Web Site</span>
+								<span class="icon-globe"></span>
+								<span id="countrySelectorButtonText">United States</span>
+							</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	
+	
+</footer>
+
+
+		</div>
+	</div>
+</div>
+
+		
+		
+		
+
+		
+			
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/button.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/downsize.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/upsize.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/tags.min.20260806155224309.css" type="text/css"/>
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5-footer.min.20260806155224309.css" type="text/css"/>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/substitutepricing.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/tags.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+
+			
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/domainredirect.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+
+			
+    
+
+
+
+
+			
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/bootstrap5.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+			
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/signinanalytics.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/spotlight.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/templates/common/bs5.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+			
+			
+				
+    
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/corporatenav.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+				<div class="modal-backdrop fade show" id="corporate_nav_modal"></div>
+			
+			
+
+			
+			<a aria-hidden="true" aria-label="Back to top" class="btn btn_color_mediumgray" href="#" id="go-top" tabindex="0"><span class="icon-arrow-open-up icon_24"></span></a>
+			<div id="web-application-footer-assets"></div>
+
+			
+    
+<link rel="stylesheet" href="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/matrixmenu.min.20260806155224309.css" type="text/css"/>
+<script src="https://nl.mathworks.com/etc.clientlibs/mathworks/clientlibs/customer-ui/components/matrixmenu.min.20260806155224309.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+
+
+
+
+			
+
+		
+
+	
+
+
+
+
+<script src="/help/releases/R2026a/includes/shared/scripts/saxonjs/SaxonJS2.rt.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script src="/help/releases/R2026a/includes/shared/scripts/product_group.js" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script>
+<script nonce="r0syoTa9IdY3gQP6WtOpHkVI">
+        window.history.replaceState(window.location.href, null, ""); // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+        mystylesheetLocation = "/help/releases/R2026a/includes/shared/scripts/product_group-sef.json";
+        mysourceLocation = "/help/releases/R2026a/docset.xml";
+        product_help_location = "fusion";
+        pagetype = "module";
+        doccentertype = "web";
+        langcode = "";
+        getProductFilteredList(mystylesheetLocation, mysourceLocation, product_help_location, pagetype, doccentertype, langcode);
+        });
+      </script>
+<script src="/help/includes/web/scripts/livecontrolpopoverhandler.js?202409" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script><script src="/help/includes/web/scripts/livetaskpopoverhandler.js?202409" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script><script src="https://matlab.mathworks.com/open/openwith.js?202403" nonce="r0syoTa9IdY3gQP6WtOpHkVI"></script><style>.examples_short_list a.btn {display: none;}</style><script type="text/javascript" nonce="98a9bf493bcbedb43fe421af013fb7e1" src="/fbGOb94K/4Od1k3F/iNtZll1/a1/3Oacz6DDS0GpLb/WBIbQg/IysPXW9/GOxgB"></script><noscript><img src="https://nl.mathworks.com/akam/13/pixel_311c4a79?a=dD1kYTNhNTA0OGJhMDdlYzVjZGU1YzBlYmEwYWUxNjJlM2NkM2E0MTAwJmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript><script type="text/javascript" nonce="98a9bf493bcbedb43fe421af013fb7e1" src="/fbGOb94K/4Od1k3F/iNtZll1/a1/rLacz6V7/GG0fQg/ARMRU0J/hV1EW?v=e9e627fe-cb1e-fc93-1425-5acc296a17c1" defer></script></body></html>
